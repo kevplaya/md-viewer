@@ -21,11 +21,11 @@ const SAMPLE_MD = `# MD Viewer에 오신 것을 환영합니다!
 
 \`\`\`mermaid
 graph TD
-    A[파일 업로드] --> B{마크다운 파일?}
-    B -->|예| C[뷰어에 렌더링]
-    B -->|아니오| D[오류 메시지]
-    C --> E[Mermaid 다이어그램 표시]
-    C --> F[테이블/코드 하이라이팅]
+    A["파일 업로드"] --> B{"마크다운 파일?"}
+    B -->|예| C["뷰어에 렌더링"]
+    B -->|아니오| D["오류 메시지"]
+    C --> E["Mermaid 다이어그램 표시"]
+    C --> F["테이블/코드 하이라이팅"]
 \`\`\`
 
 ## 시퀀스 다이어그램
@@ -40,13 +40,6 @@ sequenceDiagram
     App->>M: Mermaid 코드 감지
     M-->>App: SVG 다이어그램
     App-->>U: 렌더링된 마크다운
-\`\`\`
-
-## 코드 예시
-
-\`\`\`javascript
-const greeting = "Hello, MD Viewer!";
-console.log(greeting);
 \`\`\`
 
 ## 테이블 예시
