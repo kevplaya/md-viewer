@@ -73,9 +73,10 @@ export default function MarkdownViewer({ content, darkMode }) {
               {children}
             </Link>
           ),
-          code: ({ className, children, ...props }) => {
+          code: ({ className, children, node, ...props }) => {
             const match = /language-(\w+)/.exec(className || '')
             const lang = match ? match[1] : ''
+            const isBlock = node?.position && node.position.start.line !== node.position.end.line
 
             if (lang === 'mermaid') {
               return <MermaidBlock code={String(children).trim()} darkMode={darkMode} />
@@ -85,6 +86,7 @@ export default function MarkdownViewer({ content, darkMode }) {
               return <CodeBlock language={lang} code={String(children).trim()} />
             }
 
+            // 인라인 코드
             return (
               <Box
                 component="code"
@@ -102,7 +104,35 @@ export default function MarkdownViewer({ content, darkMode }) {
               </Box>
             )
           },
-          pre: ({ children }) => <>{children}</>,
+          pre: ({ children }) => (
+            <Paper
+              elevation={0}
+              component="pre"
+              sx={{
+                my: 2,
+                p: 2,
+                overflow: 'auto',
+                bgcolor: '#0d1117',
+                color: '#e6edf3',
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+                fontSize: '0.875rem',
+                fontFamily: '"Fira Code", "Consolas", monospace',
+                lineHeight: 1.6,
+                whiteSpace: 'pre',
+                '& code': {
+                  bgcolor: 'transparent',
+                  p: 0,
+                  borderRadius: 0,
+                  fontSize: 'inherit',
+                  fontFamily: 'inherit',
+                },
+              }}
+            >
+              {children}
+            </Paper>
+          ),
         }}
       >
         {content}
